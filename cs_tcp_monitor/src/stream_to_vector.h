@@ -12,7 +12,7 @@
 #define PKT_NUM 320
 
 
-class flow_vector{
+class tcp_vector{
 public:
 	std::string name;
 	double pkt_time[PKT_NUM];
@@ -20,7 +20,7 @@ public:
 	unsigned short pkt_sign[PKT_NUM];
 	bool pkt_tag[PKT_NUM];
 	int pkt_num;
-	flow_vector(){
+	tcp_vector(){
 		pkt_num=0;
 		memset(pkt_time,0,sizeof(pkt_time));
 		memset(pkt_sign,0,sizeof(pkt_sign));
@@ -75,6 +75,6 @@ public:
 	}
 };
 
-flow_vector stream_to_vector(char*dir);
+tcp_vector stream_to_vector(char*dir);
 
 #endif /* STREAM_TO_VECTOR_H_ */

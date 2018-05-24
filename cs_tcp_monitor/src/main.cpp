@@ -38,7 +38,7 @@ void highlight_output(int color_id, char*msg){
 }
 
 
-int read_file(char* base_dir){
+int tcp_read_file(char* base_dir){
 	DIR* pdir;
 	struct dirent *ent;
 	char childpath[512];
@@ -48,7 +48,7 @@ int read_file(char* base_dir){
 		sprintf(childpath, "%s/%s", base_dir, ent->d_name);
 		if(ent->d_type & DT_DIR){
 			if((strcmp(ent->d_name, ".") == 0) || (strcmp(ent->d_name, "..") == 0)) continue;
-			read_file(childpath);
+			tcp_read_file(childpath);
 		}
 		else{
 #if(SHOW_CHILD_PATH)
@@ -79,7 +79,7 @@ int read_file(char* base_dir){
 int main(int argc,const char*argv[]) {
 //	printf("Begining!\n");
 #if(JUDGE_FILE)
-	read_file(dir);
+	tcp_read_file(dir);
 #else
 	flow_vector cur =stream_to_vector(dir);
 	int ret = judge_tcp(cur);

@@ -12,7 +12,7 @@
 #include "debug.h"
 #define CLU_NUM 70
 #define SLICE_NUM 50
-int time_slice(flow_vector stream_vector, double delta_time, cluster_vector* clu){
+int time_slice(tcp_vector stream_vector, double delta_time, cluster_vector* clu){
 	int pos = 0;
 	int n = 0;
 	for(int i=0;i<CLU_NUM;i++)

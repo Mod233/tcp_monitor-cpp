@@ -21,8 +21,8 @@ unsigned int subnet_intranet = ntohl(inet_addr("61.161.0.0"));      //存储子�
 unsigned int subnet_extranet = ntohl(inet_addr("108.0.0.0"));     //存储子网ip，用于区分内部IP地址和外部IP地址
 unsigned int subnet_mask = ntohl(inet_addr("255.255.0.0"));  //设定子网掩码，用于区获取子网号
 
-flow_vector stream_to_vector(char*dir){
-	flow_vector cur_flow;
+tcp_vector stream_to_vector(char*dir){
+	tcp_vector cur_flow;
 	cur_flow.init();
 	cur_flow.name = std::string(dir);
     char errbuf[PCAP_ERRBUF_SIZE];
