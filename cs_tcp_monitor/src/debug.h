@@ -18,4 +18,8 @@
 #define SHOW_CK_FINAL 0
 #define CONFIGDENT 0.6
 
+
+
+
+
 #endif /* DEBUG_H_ */

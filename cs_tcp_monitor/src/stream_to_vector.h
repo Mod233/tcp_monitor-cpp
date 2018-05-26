@@ -8,12 +8,64 @@
 #ifndef STREAM_TO_VECTOR_H_
 #define STREAM_TO_VECTOR_H_
 #include <cstring>
+#include <sys/types.h>
 #include <string>
 #define PKT_NUM 320
 
+struct dns_packet{
+	bool malformed;
 
-class tcp_vector{
-public:
+};
+
+struct dns_vector{
+	int port;
+	int domain_num;
+	double time;
+	std::string name;
+	long long upload;
+	int upload_num;
+	long long download;
+	int download_num;
+	int malformed_num;
+	int transaction_num;
+	int max_host_name_num;
+	dns_packet pkt[300];
+	dns_vector(){
+		port = 0;
+		domain_num = 0;
+		time = 0.0;
+		upload = 0;
+		upload_num = 0;
+		download = 0;
+		download_num = 0;
+		malformed_num = 0;
+		transaction_num = 0;
+		max_host_name_num = 0;
+	}
+	void init(){
+		port = 0;
+		domain_num = 0;
+		time = 0.0;
+		upload = 0;
+		upload_num = 0;
+		download = 0;
+		download_num = 0;
+		malformed_num = 0;
+		transaction_num = 0;
+		max_host_name_num = 0;
+	}
+};
+
+struct dnshdr{
+	u_int16_t id;
+	u_int16_t flags;
+	u_int16_t qsnum;
+	u_int16_t anrnum;
+	u_int16_t aurnum;
+	u_int16_t adrnum;
+};
+
+struct tcp_vector{
 	std::string name;
 	double pkt_time[PKT_NUM];
 	unsigned int pkt_size[PKT_NUM];
@@ -34,8 +86,7 @@ public:
 	}
 };
 
-class cluster_vector{
-public:
+struct cluster_vector{
 	int pkt_num;
 	double pkt_time[PKT_NUM];
 	unsigned int pkt_size[PKT_NUM];
@@ -61,8 +112,7 @@ public:
 	}
 };
 
-class tid_vector{
-public:
+struct tid_vector{
 	int tid_size;
 	int tid_item[PKT_NUM][4];
 	tid_vector(){
@@ -75,6 +125,8 @@ public:
 	}
 };
 
-tcp_vector stream_to_vector(char*dir);
+tcp_vector tcp_stream_to_vector(char*dir);
+
+dns_vector dns_stream_to_vector(char*dir);
 
 #endif /* STREAM_TO_VECTOR_H_ */

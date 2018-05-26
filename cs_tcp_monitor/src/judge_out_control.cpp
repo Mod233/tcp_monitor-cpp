@@ -48,7 +48,7 @@ int time_slice(tcp_vector stream_vector, double delta_time, cluster_vector* clu)
 }
 
 
-int judge_out_control(flow_vector stream_vector, cluster_vector* clu){
+int judge_out_control(tcp_vector stream_vector, cluster_vector* clu){
 	if(stream_vector.pkt_num<300) return 0;
 	int slice_num = 0;
 	int heart_num;
@@ -170,7 +170,7 @@ int judge_out_control(flow_vector stream_vector, cluster_vector* clu){
 
 
 // 对攻击进行判断
-int judge_tcp(flow_vector stream_vector){
+int judge_tcp(tcp_vector stream_vector){
 	cluster_vector clu[CLU_NUM];
 	int outnet_ctl = 0;
 	unsigned int up_num = 0;
@@ -197,4 +197,14 @@ int judge_tcp(flow_vector stream_vector){
 	down_syn_ratio = down_num >2 ? down_syn_num*1.0/(down_num*1.0):0.0;
 	outnet_ctl = judge_out_control(stream_vector,clu);
 	return outnet_ctl;
+}
+
+
+int judge_dns(dns_vector cur){
+	if(cur.malformed_num>50)
+		return 1;
+	else if(cur.max_host_name_num>70)
+		return 2;
+	else
+		return 0;
 }
